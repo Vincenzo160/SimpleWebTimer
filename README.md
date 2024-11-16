@@ -10,7 +10,7 @@ You can add `https://timer.gorzog.com` as a browser source on OBS to get a defau
 You can use URL parameters to customize the timer. The following parameters are available:
   - `sec`: Seconds (will override `min`)
   - `min`: Minutes
-  - `blink`: Color for the timer
+  - `color`: Color for the timer
   - `blink`: Make the timer blink when it has ended
 
 For example the URL of a 3 minute and 51 second timer that doesn't blink will look like this: `https://timer.gorzog.com?sec=231&blink=false`
