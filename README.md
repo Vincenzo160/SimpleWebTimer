@@ -5,7 +5,7 @@ A simple timer for OBS.
 You can add `https://timer.gorzog.com` as a browser source on OBS to get a default 1-minute timer.
 
 > [!NOTE]
-> An interactive website to customize the timer is avaliable on its [project page](https://timer.gorzog.com/customize)
+> An interactive tool to customize the timer is avaliable on its [project page](https://timer.gorzog.com/customize)
 
 You can use URL parameters to customize the timer. The following parameters are available:
   - `sec`: Seconds (will override `min`)
