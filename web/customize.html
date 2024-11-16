@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <meta property="og:title" content="OBS Timer Builder">
+    <title>OBS Timer Builder</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e4ecf4;
+            color: #192105;
+            line-height: 1.6; /* Adjust the line-height as needed */
+        }
+        header {
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 70px;
+            background-color: var(--bg-color);
+        }
+        .logo {
+            cursor: pointer;
+            color: var(--heading-color);
+        }
+        .wrapper {
+            text-align: center;
+            margin: 0;
+            padding: 40px;
+            background-color: #e4ecf4;
+            color: #192105;
+            line-height: 1.6; /* Adjust the line-height as needed */
+        }
+        .article {
+            background-color: #fff;
+            text-align: left;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        .note {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+        .strings {
+            color: #d14;
+            background-color: #f4f4f4;
+            padding: 2px;
+            border-radius: 3px;
+        }
+              /* footer */
+        footer {
+            background-color: var(--bg-color);
+            /* position: fixed; */
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+        .mobile-foot {
+            display: none;
+        }
+        footer a {
+          color: #718ca0;
+          text-decoration: none;
+          margin: 1rem 0;
+          font-weight: 600;
+          text-transform: uppercase;
+          font-size: 50px;
+          letter-spacing: 1px;
+          transition: 0.20s;
+        }
+        footer a:hover {
+          color: #57b0f5;
+        }
+        .repo {
+          color: #192105;
+        }
+        .center-image {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+        @media (max-width: 1200px) {
+          
+          .main-image {
+            width: 200px;
+          }
+          .wrapper {
+            padding: 0px;
+          }
+          .title {
+            display: none;
+          }
+
+
+      }
+    </style>
+</head>
+
+<header>
+    <h1 class="title">Simple OBS Web Timer <a href="https://github.com/Vincenzo160/SimpleWebTimer"><i class="fa fa-github repo"></i></a></h1>
+</header>
+<body>
+<!-- home -->
+<div class="wrapper">
+  <iframe id="preview" src="http://127.0.0.1:5500/web/index.html" frameborder="0" style="background-color: #192105; border-radius: 15px;"></iframe>
+  <h3>Timer Preview</h3>
+
+  <div class="article">
+    <!-- <p class="note">Note: This project includes the display driver for the Waveshare Pico e-Paper 2.9 (B) display provided by Waveshare</p> -->
+    <div class="center" style="background-color: #d6e2ed; border-radius: 15px;">
+      <h2>Customize</h2>
+      <label for="sec">Seconds:</label>
+      <input type="number" name="Seconds" id="sec" placeholder="0">
+      <label for="min">Minutes:</label>
+      <input type="number" name="Minutes" id="min" placeholder="1">
+      <br>
+      <label for="blink">Blink when completed?</label>
+      <input type="checkbox" name="Blink" id="blink" checked>
+      <br>
+      <button id="generate">Generate URL</button>
+      <br>
+      <div id="results" style="display: none;">
+        <label for="result">URL:</label>
+        <button id="copy"><i class="fa fa-copy"></i></button>
+        <input type="text" name="result" id="result" disabled value="https://timer.gorzog.com" style="width: 500px;">
+      </div>
+    </div>
+
+    <h2 id="parameters">Parameters</h2>
+    <p>You can use URL parameters to customize the timer. The following parameters are available:</p>
+    <ul>
+    <li><code class="strings">sec</code>: Seconds (will override <code class="strings">min</code>).</li>
+    <li><code class="strings">min</code>: Minutes.</li>
+    <li><code class="strings">blink</code>: Make the timer blink when it has ended.</li>
+    </ul>
+    <p>For example the URL of a 3 minute and 51 second timer that doesn't blink will look like this: <code class="strings">https://timer.gorzog.com?sec=231&amp;blink=false</code></p>
+    <h2>Installation</h2>
+    <p>Simply copy the generated URL and paste it into a browser source in OBS.</p>
+    <img src="https://gorzog.com/assets/timer/properties.png" alt="Properties for the browser source" style="max-width: 500px; height: auto; border-radius: 5px;" class="center-image">
+    <p>Make sure to enable "Shutdown source when not visible" and "Refresh browser when scene becomes active" so that when you make the timer visible it will automaticaly start.</p>
+    <h2>Usage</h2>
+    <p>When you make the source visible the timer will automaticaly start, to restart the timer select the source and hit "Refresh" (<img src="https://gorzog.com/assets/timer/refresh.png" alt="Refresh button" style="max-width: 100px; height: auto; border-radius: 5px;">).</p>
+    <p>To change the duration of the timer you can either change the parameters in the URL or use this webpage to generate a new URL</p>
+  </div>
+</div>
+<script>
+  document.getElementById('generate').addEventListener('click', function(e) {
+    const sec = parseInt(document.getElementById('sec').value) || 0;
+    const min = parseInt(document.getElementById('min').value) || 0;
+    const blink = document.getElementById('blink').checked;
+    
+    let url = 'https://timer.gorzog.com?';
+    
+    if (sec > 0 || min > 0) {
+      if (sec > 0) {
+        let totalSeconds = (min * 60) + sec;
+        url += `sec=${totalSeconds}&`;
+      } else {
+        url += `min=${min}&`;
+      }
+    }
+    
+    if (!blink) {
+      url += `blink=false`;
+    } else {
+      // Remove the trailing '&' if blink is true and no other parameters follow
+      url = url.endsWith('&') ? url.slice(0, -1) : url;
+    }
+    
+    document.getElementById('result').value = url;
+    document.getElementById('preview').src = url
+    document.getElementById('copy').innerHTML = '<i class="fa fa-copy"></i>';
+    document.getElementById('results').style.display = 'block';
+  });
+  document.getElementById('copy').addEventListener('click', function(e) {
+    url = document.getElementById('result').value;
+    navigator.clipboard.writeText(url);
+    document.getElementById('copy').innerHTML = '<i class="fa fa-check"></i>';
+  });
+</script>
+</body>
+<!-- footer -->
+<footer>
+  <a href="https://github.com/Vincenzo160/SimpleWebTimer"><i class="fa fa-github"></i></a>
+  <a href="https://twitter.com/Gorzog_"><i class="fa fa-twitter"></i></a>
+  <a href="/"><i class="fa fa-globe"></i></a>
+</footer>
+<!-- footer end -->
+</html>
