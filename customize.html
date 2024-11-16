@@ -140,6 +140,8 @@
       <input type="number" name="Seconds" id="sec" placeholder="0">
       <label for="min">Minutes:</label>
       <input type="number" name="Minutes" id="min" placeholder="1">
+      <label for="color">Color:</label>
+      <input type="color" name="color" id="color" value="#ffffff">
       <br>
       <label for="blink">Blink when completed?</label>
       <input type="checkbox" name="Blink" id="blink" checked>
@@ -158,6 +160,7 @@
     <ul>
     <li><code class="strings">sec</code>: Seconds (will override <code class="strings">min</code>).</li>
     <li><code class="strings">min</code>: Minutes.</li>
+    <li><code class="strings">color</code>: Color for the timer.</li>
     <li><code class="strings">blink</code>: Make the timer blink when it has ended.</li>
     </ul>
     <p>For example the URL of a 3 minute and 51 second timer that doesn't blink will look like this: <code class="strings">https://timer.gorzog.com?sec=231&amp;blink=false</code></p>
@@ -175,6 +178,7 @@
     const sec = parseInt(document.getElementById('sec').value) || 0;
     const min = parseInt(document.getElementById('min').value) || 0;
     const blink = document.getElementById('blink').checked;
+    let color = document.getElementById('color').value;
     
     let url = 'https://timer.gorzog.com?';
     
@@ -187,6 +191,11 @@
       }
     }
     
+    if (color !== '#ffffff') {
+      color = color.replace('#', ''); // Remove the '#' from the color code
+      url += `color=${encodeURIComponent(color)}&`;
+    }
+    
     if (!blink) {
       url += `blink=false`;
     } else {
@@ -195,10 +204,11 @@
     }
     
     document.getElementById('result').value = url;
-    document.getElementById('preview').src = url
+    document.getElementById('preview').src = url;
     document.getElementById('copy').innerHTML = '<i class="fa fa-copy"></i>';
     document.getElementById('results').style.display = 'block';
   });
+
   document.getElementById('copy').addEventListener('click', function(e) {
     url = document.getElementById('result').value;
     navigator.clipboard.writeText(url);

@@ -4,9 +4,12 @@ let timerElement = document.getElementById('timer');
 
 let startTime = getParam('sec');
 let mins = getParam('min');
+let color = getParam('color');
 let isBlink = getParam('blink');
-console.log(isBlink);
 
+if (color !== null) {
+  document.body.style.setProperty('color', `#${color}`, 'important');
+}
 if (startTime === null && mins !== null) {
   startTime = mins * 60;
 } else if (startTime === null) {
