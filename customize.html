@@ -107,6 +107,10 @@
         align-items: center;
         justify-content: center;
       }
+      #results {
+        padding-bottom: 20px;
+
+      }
         @media (max-width: 1200px) {
           
           .main-image {
@@ -121,7 +125,18 @@
           .title {
             display: none;
           }
-
+          
+          #results {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            /* width: 80%; */
+          }
+          
+          input[type="text"] {
+            width: 60% !important;
+          }
+          
 
       }
     </style>
@@ -153,8 +168,8 @@
       <br>
       <div id="results" style="display: none;">
         <label for="result">URL:</label>
-        <button id="copy"><i class="fa fa-copy"></i></button>
         <input type="text" name="result" id="result" disabled value="https://timer.gorzog.com" style="width: 400px;">
+        <button id="copy"><i class="fa fa-copy"></i></button>
       </div>
     </div>
 
