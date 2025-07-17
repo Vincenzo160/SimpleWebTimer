@@ -210,17 +210,20 @@
     }
     
     if (color !== '#ffffff') {
-      color = color.replace('#', ''); // Remove the '#' from the color code
+      color = color.replace('#', '');
       url += `color=${encodeURIComponent(color)}&`;
     }
     
     if (!blink) {
       url += `blink=false`;
     } else {
-      // Remove the trailing '&' if blink is true and no other parameters follow
       url = url.endsWith('&') ? url.slice(0, -1) : url;
     }
-    
+
+    if (url.endsWith('?')) {
+      url = url.slice(0, -1);
+    }
+
     document.getElementById('result').value = url;
     document.getElementById('preview').src = url;
     document.getElementById('copy').innerHTML = '<i class="fa fa-copy"></i>';
