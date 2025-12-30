@@ -6,6 +6,7 @@ let startTime = getParam('sec');
 let mins = getParam('min');
 let color = getParam('color');
 let isBlink = getParam('blink');
+let isHide = getParam('hide');
 
 if (color !== null) {
   document.body.style.setProperty('color', `#${color}`, 'important');
@@ -35,10 +36,14 @@ function updateTimer() {
   if (startTime > 0) {
     startTime--;
     setTimeout(updateTimer, 1000);
-  } else if (isBlink !== 'false') {
-    startBlinking();
-    
-  }
+  } else {
+    if (isBlink !== 'false') {
+      startBlinking();
+    }
+    if (isHide == 'true') {
+      timerElement.hidden = true
+    }
+  } 
 }
 
 function startBlinking() {

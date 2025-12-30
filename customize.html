@@ -161,8 +161,12 @@
       <label for="color">Color:</label>
       <input type="color" name="color" id="color" value="#ffffff">
       <br>
-      <label for="blink">Blink when completed?</label>
-      <input type="checkbox" name="Blink" id="blink" checked>
+      <label for="complete">When completed:</label>
+      <select id="complete">
+        <option value="none">Do nothing</option>
+        <option value="blink" selected>Blink</option>
+        <option value="hide">Hide</option>
+      </select>
       <br>
       <button id="generate">Preview and Generate URL</button>
       <br>
@@ -179,7 +183,8 @@
     <li><code class="strings">sec</code>: Seconds (will override <code class="strings">min</code>).</li>
     <li><code class="strings">min</code>: Minutes.</li>
     <li><code class="strings">color</code>: Hex color code for the timer.</li>
-    <li><code class="strings">blink</code>: Make the timer blink when it has ended.</li>
+    <li><code class="strings">blink</code>: Makes the timer blink when it has ended (defaults to <code class="strings">true</code>).</li>
+    <li><code class="strings">hide</code>: Makes the timer hidden when it has ended (will override <code class="strings">blink</code>).</li>
     </ul>
     <p>For example the URL of a 3 minute and 51 second timer that doesn't blink will look like this: <code class="strings">https://timer.gorzog.com?sec=231&amp;blink=false</code>.</p>
     <h2>Installation</h2>
@@ -195,7 +200,7 @@
   document.getElementById('generate').addEventListener('click', function(e) {
     const sec = parseInt(document.getElementById('sec').value) || 0;
     const min = parseInt(document.getElementById('min').value) || 0;
-    const blink = document.getElementById('blink').checked;
+    const complete = document.getElementById('complete').value
     let color = document.getElementById('color').value;
     
     let url = 'https://timer.gorzog.com?';
@@ -214,10 +219,16 @@
       url += `color=${encodeURIComponent(color)}&`;
     }
     
-    if (!blink) {
-      url += `blink=false`;
-    } else {
-      url = url.endsWith('&') ? url.slice(0, -1) : url;
+    switch (complete) {
+      case "none":
+        url += `blink=false`;
+        break
+      case "hide":
+        url += 'hide=true'
+        break
+      default:
+        url = url.endsWith('&') ? url.slice(0, -1) : url;
+        break
     }
 
     if (url.endsWith('?')) {
