@@ -165,8 +165,14 @@
       <select id="complete">
         <option value="none">Do nothing</option>
         <option value="blink" selected>Blink</option>
+        <option value="color">Change color</option>
+        <option value="color+blink">Change color & Blink</option>
         <option value="hide">Hide</option>
       </select>
+      <div id="color-end-sec" style="margin-top: 10px;" hidden>
+        <label for="color-end">Change color to:</label>
+        <input type="color" name="color-end" id="color-end" value="#ff0000">
+      </div>
       <br>
       <button id="generate">Preview and Generate URL</button>
       <br>
@@ -183,6 +189,7 @@
     <li><code class="strings">sec</code>: Seconds (will override <code class="strings">min</code>).</li>
     <li><code class="strings">min</code>: Minutes.</li>
     <li><code class="strings">color</code>: Hex color code for the timer.</li>
+    <li><code class="strings">endColor</code>: Hex color code used when the timer has ended.</li>
     <li><code class="strings">blink</code>: Makes the timer blink when it has ended (defaults to <code class="strings">true</code>).</li>
     <li><code class="strings">hide</code>: Makes the timer hidden when it has ended (will override <code class="strings">blink</code>).</li>
     </ul>
@@ -202,7 +209,10 @@
     const min = parseInt(document.getElementById('min').value) || 0;
     const complete = document.getElementById('complete').value
     let color = document.getElementById('color').value;
+    let endColor = document.getElementById('color-end').value;
     
+    endColor = endColor.replace('#', '');
+
     let url = 'https://timer.gorzog.com?';
     
     if (sec > 0 || min > 0) {
@@ -226,6 +236,13 @@
       case "hide":
         url += 'hide=true'
         break
+      case "color":
+        url += 'endColor='+endColor
+        url += '&blink=false'
+        break
+      case "color+blink":
+        url += 'endColor='+endColor
+        break
       default:
         url = url.endsWith('&') ? url.slice(0, -1) : url;
         break
@@ -246,6 +263,18 @@
     navigator.clipboard.writeText(url);
     document.getElementById('copy').innerHTML = '<i class="fa fa-check"></i>';
   });
+
+  document.getElementById('complete').addEventListener('change', function(e) {
+    const complete = document.getElementById('complete').value
+    let sec = document.getElementById('color-end-sec')
+    if (complete === "color" || complete === "color+blink") {
+      sec.hidden = false
+      console.log("Ciao")
+    } else {
+      sec.hidden = true
+    }
+  })
+
 </script>
 </body>
 <!-- footer -->

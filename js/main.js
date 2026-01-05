@@ -5,6 +5,7 @@ let timerElement = document.getElementById('timer');
 let startTime = getParam('sec');
 let mins = getParam('min');
 let color = getParam('color');
+let endColor = getParam('endColor');
 let isBlink = getParam('blink');
 let isHide = getParam('hide');
 
@@ -37,6 +38,9 @@ function updateTimer() {
     startTime--;
     setTimeout(updateTimer, 1000);
   } else {
+    if (endColor !== null) {
+      document.body.style.setProperty('color', `#${endColor}`, 'important');
+    }
     if (isBlink !== 'false') {
       startBlinking();
     }

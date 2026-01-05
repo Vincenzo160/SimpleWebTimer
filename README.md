@@ -11,6 +11,7 @@ You can use URL parameters to customize the timer. The following parameters are 
   - `sec`: Seconds (will override `min`).
   - `min`: Minutes.
   - `color`: Hex color code for the timer.
+  - `endColor`: Hex color code used when the timer has ended.
   - `blink`: Makes the timer blink when it has ended (defaults to `true`).
   - `hide`: Makes the timer hidden when it has ended (will override `blink`).
 
